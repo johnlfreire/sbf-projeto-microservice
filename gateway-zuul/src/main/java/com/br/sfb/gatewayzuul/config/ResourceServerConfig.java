@@ -7,7 +7,7 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
-import org.springframework.http.HttpMethod;
+//import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
@@ -27,9 +27,9 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	
 	private static final String[] PUBLIC = { "/sfb-oauth/oauth/token" };
 	
-	private static final String[] OPERATOR = { "/sfb-worker/**" };
+	//private static final String[] OPERATOR = { "" };
 	
-	private static final String[] ADMIN = { "/sfb-payroll/**", "/sfb-user/**", "/actuator/**", "/sfb-worker/actuator/**", "/sfb-oauth/actuator/**" };
+	private static final String[] ADMIN = { "/sfb-user/**", "/actuator/**", "/sfb-oauth/actuator/**" };
 	
 	@Override
 	public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
@@ -41,7 +41,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 		
 		http.authorizeRequests()
 		.antMatchers(PUBLIC).permitAll()
-		.antMatchers(HttpMethod.GET, OPERATOR).hasAnyRole("OPERATOR", "ADMIN")
+		//.antMatchers(HttpMethod.GET, OPERATOR).hasAnyRole("OPERATOR", "ADMIN")
 		.antMatchers(ADMIN).hasRole("ADMIN")
 		.anyRequest().authenticated();
 		
